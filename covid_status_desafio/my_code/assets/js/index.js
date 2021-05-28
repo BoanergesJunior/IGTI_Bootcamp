@@ -57,7 +57,21 @@ function buildBarChart(summary){
 }
 
 function buildPieChart(summary) {
-    
+
+    let ctx = document.getElementById('pizza')
+    let globalData = summary.Global
+
+    let chart = new Chart(ctx,{
+        type:'pie',
+        data:{
+            labels: ['Confirmados', 'Recuperados', 'Mortes'],
+            datasets: [{
+                label: "Distribuição de novos casos",
+                data: [globalData.NewConfirmed, globalData.NewRecovered, globalData.NewDeaths],  
+                backgroundColor: ['red', 'blue', 'yellow'],              
+            }]
+        }
+    });
 }
 
 function foundTenMore(countriesArray) {
