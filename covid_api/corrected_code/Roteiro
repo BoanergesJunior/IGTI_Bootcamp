@@ -1,0 +1,12 @@
+Checklist Primeira aula ✓
+
+(X) TP: Fetch informacoes globais (Countries e Summary)
+    https://api.covid19api.com/countries
+    https://api.covid19api.com/summary
+(X) TP: Lógica para o combo Countries
+(X) TP: Lógica para os KPIs Globais
+(X) TP: Adicionar os manipuladores no combo e data
+(X) TP: Lógica para o manipulador de evento
+`https://api.covid19api.com/country/${country}?from=${startDate.toISOString()}&to=${endDate.toISOString()}`
+( ) Protótipos
+( ) JavaScript Assincrono
