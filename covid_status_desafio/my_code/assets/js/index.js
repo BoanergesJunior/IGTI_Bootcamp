@@ -10,6 +10,7 @@
     catch(e){
         console.error(e);
     }
+    
 })();
 
 function buildDashboard(summary) {
@@ -50,7 +51,6 @@ function buildBarChart(summary){
                     country5.totalDeaths, country6.totalDeaths, country7.totalDeaths, country8.totalDeaths,
                     country9.totalDeaths, country10.totalDeaths],
                 backgroundColor: 'purple',
-                
             }]
         }
     });
