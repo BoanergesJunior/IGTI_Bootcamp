@@ -1,21 +1,29 @@
+import { Fragment, useState } from 'react';
+import Header from './components/Header'
+import Main from './components/Main';
+// import Test from './components/Test'
+
 export default function App() {
-  console.log('Teste no console do navegador');
+
+  const [name, setName] = useState('Boanerges')
+  
+  function handleNameChange(event) {
+    const newName = event.currentTarget.value
+    setName(newName)
+  }
 
   return (
-    <div>
-      <header>
-        <div className="bg-gray-100 mx-auto p-4">
-          <h1 className="text-center font-semibold text-xl">
-            Projeto base para o Módulo React I
-          </h1>
+    <Fragment>
+      <Header>Componente Header</Header>
+      <Main>
+        <div className="flex flex-col my-4">
+          <label className="text-sm text-gray-500 mb-2" htmlFor="inputName">Digite o seu nome: </label>
+          <input autoFocus id="inputName" className="border p-1" type="text" value={name} onChange={handleNameChange}/>
         </div>
-      </header>
-
-      <main>
-        <div className="container mx-auto p-4">
-          <h2>O conteúdo fica aqui.</h2>
-        </div>
-      </main>
-    </div>
+        <p>O seu nome é {name} com {name.length} caracteres</p>
+      </Main>
+    </Fragment>
   );
 }
+
+// {/* <Test number={10} string="Teste" visible data={{a: 1, b: 2}}/> */}
