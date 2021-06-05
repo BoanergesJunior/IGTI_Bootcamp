@@ -1,7 +1,8 @@
 export default function TextInput({
     labelDescription = 'Descricao do label: ',
     inputValue = 'Valor padrao do input',
-    onInputChange = null
+    onInputChange = null,
+    id = 'id_input_text'
 }) {
     function handleInputChange({currentTarget}) {
         if(onInputChange) {
@@ -12,10 +13,10 @@ export default function TextInput({
 
     return (
         <div className="flex flex-col my-4">
-            <label className="text-sm text-gray-500 mb-2" htmlFor="inputName">
+            <label className="text-sm text-gray-500 mb-2" htmlFor={id}>
                 {labelDescription} 
             </label>
-            <input autoFocus id="inputName" className="border p-1" type="text" value={inputValue} onChange={handleInputChange}/>
+            <input autoFocus id={id} className="border p-1" type="text" value={inputValue} onChange={handleInputChange}/>
         </div>
     )
 }
