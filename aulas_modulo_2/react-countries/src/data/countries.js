@@ -2249,4 +2249,6 @@ export const allCountries = [
       "area": 390757,
       "flag": "https://restcountries.eu/data/zwe.svg"
     }
-  ]
+  ].map(country => {
+    return {...country, nameLowerCase: country.name.toLocaleLowerCase()}
+  })
