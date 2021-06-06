@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Countries from '../components/Countries'
 import Header from '../components/Header'
 import Main from '../components/Main'
 import TextInput from '../components/TextInput'
@@ -31,6 +32,11 @@ export default function ReactCountriesPage() {
             inputValue={countryFilter}
             onInputChange={handleCountryFilterChange}
             autoFocus/>
+
+          <Countries>
+            {filteredCountries}
+          </Countries>
+
         </Main>
       </div>
     )
