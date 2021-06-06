@@ -1,6 +1,6 @@
 import Item from "./Item"
 
-export default function Country({children: country = null, onCountryClick = null}) {
+export default function Country({children: country = null, onCountryClick = null, isVisited = false }) {
     
     const {id, flag, name, capital, population, area, region} = country
 
@@ -14,8 +14,10 @@ export default function Country({children: country = null, onCountryClick = null
             onCountryClick(id)
     }
 
+    const isVisitedClassName = isVisited ? 'bg-green-100' : ''
+
     return (
-        <div className="border p-2 m-2 flex flex-row items-center space-x-2"
+        <div className={`border p-2 m-2 flex flex-row items-center space-x-2 cursor-pointer ${isVisitedClassName}`}
             onClick={handleCountryClick}>
             
             <img className="w-48" src={flag} alt="flag"/>
