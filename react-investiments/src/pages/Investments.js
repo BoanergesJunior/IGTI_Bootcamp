@@ -12,10 +12,8 @@ export default function Investments() {
                     return (
                         <Header key={investmentsDescription.id}>
                             <div>
-                                <h1 className="text-lg">{investmentsDescription.description}</h1>
-                                <span className="text-sm ">Rendimento Total: R$ 123</span>
-
-                                <Data id={investmentsDescription.id}/>
+                                <h1 className="font-mono text-lg">{investmentsDescription.description}</h1>
+                                <Data id={investmentsDescription.id} TotalPercentage="TotalPercentage"/>
                             </div>
                         </Header>
                         )})
