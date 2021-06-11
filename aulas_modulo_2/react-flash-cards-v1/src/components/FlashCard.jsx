@@ -7,14 +7,14 @@ export default function FlashCard({
 
     const [showTitle, setShowTitle] = useState(true)
 
-    const fontSizeClassName = showTitle ? 'text-xl' : 'text-md'
+    const fontSizeClassName = showTitle ? 'text-xl' : 'text-sm'
 
     function handleCardClick() {
         setShowTitle(currentShowTitle => !currentShowTitle)
     }
 
     return (
-        <div className={`shadow-md p-4 w-64 h-32 cursor-pointer
+        <div className={`shadow-md p-4 m-2 w-80 h-48 cursor-pointer
                          bg-blue flex items-center justify-center 
                          font-mono font-semibold ${fontSizeClassName}`}
                          onClick={handleCardClick}>
