@@ -12,7 +12,7 @@ import { helperShuffleArray }from '../helpers/arrayHelpers'
 export default function FlashCardsPage() {
 
     const [allCards, setAllCards] = useState(allFlashCards)
-    const [showTitle, setShowTitle] = useState(true)
+    const [radioButtonShowTitle, setRadioButtonShowTitle] = useState(true)
 
 
     function handleButtonClick() {
@@ -22,11 +22,33 @@ export default function FlashCardsPage() {
     }
 
     function handleRadioShowTitle() {
-        setShowTitle(true)
+        const updatedCard = [...allCards]
+        .map(card => card.showTitle = ({
+            ...card, 
+            showTitle: true
+        }))
+
+        setAllCards(updatedCard)
+        setRadioButtonShowTitle(true)
     }
 
     function handleRadioShowDescription() {
-        setShowTitle(false)
+        const updatedCard = [...allCards]
+        .map(card => card.showTitle = ({
+            ...card, 
+            showTitle: false
+        }))
+
+        setAllCards(updatedCard)
+        setRadioButtonShowTitle(false)
+    }
+
+    function handleToggleFlashCard(cardId) {
+        const updatedCard = [...allCards]
+        const cardIndex = updatedCard.findIndex(card => cardId === card.id)
+        updatedCard[cardIndex].showTitle = !updatedCard[cardIndex].showTitle
+
+        setAllCards(updatedCard)
     }
 
     return (
@@ -39,18 +61,18 @@ export default function FlashCardsPage() {
 
                 <div className="flex flex-row m-4 items-center justify-center space-x-4">
                     <RadioButton id="radioButtonShowTitle" name="showInfo" 
-                                 buttonChecked={showTitle} onButtonClick={handleRadioShowTitle}>Mostrar título</RadioButton>
+                                 buttonChecked={radioButtonShowTitle} onButtonClick={handleRadioShowTitle}>Mostrar título</RadioButton>
 
                     <RadioButton id="radioButtonShowDescription" name="showInfo" 
-                                 buttonChecked={!showTitle} onButtonClick={handleRadioShowDescription}>Mostrar Descrição</RadioButton>
+                                 buttonChecked={!radioButtonShowTitle} onButtonClick={handleRadioShowDescription}>Mostrar Descrição</RadioButton>
                 </div>
 
 
                 <FlashCards>
-                    {allCards.map(({id, title, description}) => {
-                        return (<FlashCard key={id} 
+                    {allCards.map(({id, title, description, showTitle}) => {
+                        return (<FlashCard key={id} id={id}
                                 description={description} title={title}
-                                showFlashCardTitle={showTitle}/>)
+                                showFlashCardTitle={showTitle} onToggleFlashCard={handleToggleFlashCard}/>)
                     })}
                 </FlashCards>
             </Main>
