@@ -22,11 +22,11 @@ export default function FlashCardsPage() {
     }
 
     function handleRadioShowTitle() {
-        setShowTitle(false)
+        setShowTitle(true)
     }
 
     function handleRadioShowDescription() {
-        setShowTitle(true)
+        setShowTitle(false)
     }
 
     return (
@@ -48,7 +48,9 @@ export default function FlashCardsPage() {
 
                 <FlashCards>
                     {allCards.map(({id, title, description}) => {
-                        return (<FlashCard key={id} description={description} title={title}/>)
+                        return (<FlashCard key={id} 
+                                description={description} title={title}
+                                showFlashCardTitle={showTitle}/>)
                     })}
                 </FlashCards>
             </Main>
