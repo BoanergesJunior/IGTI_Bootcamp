@@ -4,11 +4,13 @@ import _ from 'lodash'
 
 import ComboCity from "../components/ComboCity";
 import Header from "../components/Header";
+import Main from '../components/Main';
+import Title from '../components/Title';
 
 export default function ElectionsInfo() {
 
     const [allCities, setAllCities] = useState([])
-
+    const [selectedCity, setSelectedCity] = useState('')
 
     useEffect(() => {
         async function getAllCitiesOrdered() {
@@ -24,19 +26,20 @@ export default function ElectionsInfo() {
         getAllCitiesOrdered()
     }, [])
 
+    function handleChangeSelected(cityName) {
+        setSelectedCity(cityName)
+    }
+
     return (
         <>
             <Header />
 
-            <ComboCity>
-                <select className="bg-gray-50 shadow-lg rounded-lg" name="cities" id="citySelectId">
-                    {allCities.map(city => {
-                        return <option key={city.id} value={city.name}>
-                            {city.name}
-                        </option>
-                    })}
-                </select>
-            </ComboCity>
+            <ComboCity arrayOfAllCities={allCities} onSelectedCity={handleChangeSelected}/>
+
+
+            <Main>
+                <Title>Eleições em {selectedCity}</Title>
+            </Main>
         </>
     )
 }
