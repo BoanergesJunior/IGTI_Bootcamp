@@ -1,13 +1,6 @@
-// import { apiGetAllElection } from './services/electionServices/apiService'
+import ElectionsInfo from "./pages/ElectionsInfo";
 
 export default function App() {
 
-  // async function teste() {
-  //   console.log(await apiGetAllElection())
-  // }
-  // teste()
-
-  return (
-    <div>Teste</div>
-  );
+  return <ElectionsInfo />
 }
