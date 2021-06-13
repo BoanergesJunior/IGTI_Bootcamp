@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '../components/Button';
 import FlashCard from '../components/FlashCard';
 import FlashCards from '../components/FlashCards';
@@ -9,8 +9,14 @@ import { apiGetAllFlashCards } from '../services/apiService'
 import { helperShuffleArray } from '../helpers/arrayHelpers';
 
 export default function FlashCardsPage() {
-  const [allCards, setAllCards] = useState(apiGetAllFlashCards());
+  const [allCards, setAllCards] = useState([]);
   const [radioButtonShowTitle, setRadioButtonShowTitle] = useState(true);
+
+  useEffect(() => {
+    apiGetAllFlashCards().then(allFlashCards => {
+      console.log(allFlashCards)
+    })
+  }, [])
 
   function handleButtonClick() {
     const shuffledCards = helperShuffleArray(allCards);
