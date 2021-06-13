@@ -23,8 +23,6 @@ import {
   apiUpdateFlashCard,
 } from '../services/apiService';
 
-import { getNewId } from '../services/idService';
-
 export default function FlashCardsPage() {
   // Back End
   const [allCards, setAllCards] = useState([]);
@@ -41,17 +39,6 @@ export default function FlashCardsPage() {
   const [radioButtonShowTitle, setRadioButtonShowTitle] = useState(true);
 
   useEffect(() => {
-    // Promise
-    // apiGetAllFlashCards().then(allFlashCards => {
-    //   setAllCards(allFlashCards);
-    // });
-
-    //IIFE
-    // (async function getAllCards() {
-    //   const backEndAllCards = await apiGetAllFlashCards();
-    //   setAllCards(backEndAllCards);
-    // })();
-
     async function getAllCards() {
       try {
         const backEndAllCards = await apiGetAllFlashCards();
@@ -265,7 +252,7 @@ export default function FlashCardsPage() {
 
   return (
     <>
-      <Header>react-flash-cards-v2</Header>
+      <Header>react-flash-cards-v3</Header>
 
       <Main>{mainJsx}</Main>
     </>
