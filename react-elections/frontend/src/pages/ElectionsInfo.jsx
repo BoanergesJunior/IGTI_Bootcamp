@@ -6,12 +6,12 @@ import ComboCity from "../components/ComboCity";
 import Header from "../components/Header";
 import Main from '../components/Main';
 import Title from '../components/Title';
-import CardCanditate from '../components/CardCanditate';
+import CardCandidate from '../components/CardCandidate';
 
 export default function ElectionsInfo() {
 
     const [allCities, setAllCities] = useState([])
-    const [selectedCity, setSelectedCity] = useState('')
+    const [selectedCity, setSelectedCity] = useState('Asgard')
 
     useEffect(() => {
         async function getAllCitiesOrdered() {
@@ -36,13 +36,14 @@ export default function ElectionsInfo() {
             <Header />
 
             <Main>
-                <ComboCity arrayOfAllCities={allCities} onSelectedCity={handleChangeSelected}/>            
-                <Title arrayOfAllCities={allCities} comboSelectedCity={selectedCity}>Eleições em {selectedCity}</Title>
-                
+                <ComboCity arrayOfAllCities={allCities} onSelectedCity={handleChangeSelected}/> 
+                {allCities.length !== 0 &&            
+                    <Title arrayOfAllCities={allCities} comboSelectedCity={selectedCity}>Eleições em {selectedCity}</Title>
+                }
                 <div className="flex flex-row flex-wrap  justify-center max-w-5xl">
-                    <CardCanditate />
-                    <CardCanditate />
-                    <CardCanditate />
+                    <CardCandidate />
+                    <CardCandidate />
+                    <CardCandidate />
                 </div>
                     
             </Main>

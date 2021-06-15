@@ -5,8 +5,6 @@ export default function Title({
     arrayOfAllCities = [],
     comboSelectedCity = ''
 }) {
-    let status = arrayOfAllCities.length == 0 ? 'vazio' : arrayOfAllCities 
-    console.log(status)
 
     let info = _.find(arrayOfAllCities, {name: comboSelectedCity})
 
@@ -19,9 +17,9 @@ export default function Title({
             </div>
 
             <div className="flex flex-row font-mono font-semibold items-center space-x-4 m-2">
-                {/* <span>Total Eleitores: {info.votingPopulation.toLocaleString()}</span>
+                <span>Total Eleitores: {info.votingPopulation.toLocaleString()}</span>
                 <span>Abstenção: {info.absence.toLocaleString()}</span>
-                <span>Comparecimento: {info.presence.toLocaleString()}</span> */}
+                <span>Comparecimento: {info.presence.toLocaleString()}</span>
             </div>
 
             <div className="text-center font-mono text-sm m-3">

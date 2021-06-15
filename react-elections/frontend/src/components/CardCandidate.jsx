@@ -1,6 +1,6 @@
 import antman from '../assets/antman.png'
 
-export default function CardCanditate() {
+export default function CardCandidate() {
     return (
         <div className="flex justify-center font-mono">
             <div className="shadow-xl w-48 h-44 rounded-sm m-2">
