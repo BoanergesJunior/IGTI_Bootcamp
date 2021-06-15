@@ -6,6 +6,7 @@ import ComboCity from "../components/ComboCity";
 import Header from "../components/Header";
 import Main from '../components/Main';
 import Title from '../components/Title';
+import CardCanditate from '../components/CardCanditate';
 
 export default function ElectionsInfo() {
 
@@ -34,11 +35,16 @@ export default function ElectionsInfo() {
         <>
             <Header />
 
-            <ComboCity arrayOfAllCities={allCities} onSelectedCity={handleChangeSelected}/>
-
-
             <Main>
-                <Title>Eleições em {selectedCity}</Title>
+                <ComboCity arrayOfAllCities={allCities} onSelectedCity={handleChangeSelected}/>            
+                <Title arrayOfAllCities={allCities} comboSelectedCity={selectedCity}>Eleições em {selectedCity}</Title>
+                
+                <div className="flex flex-row flex-wrap  justify-center max-w-5xl">
+                    <CardCanditate />
+                    <CardCanditate />
+                    <CardCanditate />
+                </div>
+                    
             </Main>
         </>
     )

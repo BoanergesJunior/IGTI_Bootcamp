@@ -16,7 +16,7 @@ export default function ComboCity({
                 onChange={handleSelectedCity}>
 
                 {arrayOfAllCities.map(city => {
-                    return <option key={city.id} value={city.name}>
+                    return <option key={city.id} value={city.name} defaultValue="Asgard">
                         {city.name}
                     </option>
                 })}
