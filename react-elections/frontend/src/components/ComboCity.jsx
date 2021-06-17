@@ -12,7 +12,7 @@ export default function ComboCity({
         <div className="flex flex-col items-center m-5">
             <span className="p-2 font-mono">Escolha o município</span>
 
-            <select className="bg-gray-50 shadow-lg rounded-lg font-mono" name="cities" id="citySelectId"
+            <select className="bg-gray-50 shadow-lg rounded-lg font-mono p-1" name="cities" id="citySelectId"
                 onChange={handleSelectedCity}>
 
                 {arrayOfAllCities.map(city => {

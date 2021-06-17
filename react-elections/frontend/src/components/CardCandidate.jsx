@@ -1,14 +1,9 @@
-import CardInfo from './CardInfo'
+import _ from 'lodash'
 
-export default function CardCandidate({
-    arrayOfAllCandidates = [],
-    infoElection = []
-}) {
+export default function CardCandidate({children}) {
     return (
-        <div className="flex flex-row flex-wrap justify-center font-mono">
-           
-            return <CardInfo name={arrayOfAllCandidates.name}/>
-
+        <div className="flex flex-row flex-wrap justify-center font-mono">         
+            {children}
         </div>
     )
 }
