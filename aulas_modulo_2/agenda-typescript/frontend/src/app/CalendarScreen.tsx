@@ -7,16 +7,17 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Icon from '@material-ui/core/Icon';
+import Avatar from '@material-ui/core/Avatar';
 
 const DAYS_OF_WEEK = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SAB"]
 
 const useStyles = makeStyles({
-    root: {
-        
-    },
     table: {
+        borderTop: "1px solid rgb(224, 224, 224)",
         minHeight: "100%",
         "& td ~ td, & th ~ th": {
             borderLeft: "1px solid rgb(224, 224, 224)"
@@ -43,6 +44,27 @@ export default function CalendarScreen() {
             </Box>
 
             <TableContainer component={"div"}>
+
+                <Box display="flex" alignItems="center" padding="8px 16px">
+                    <Box>
+                        <IconButton aria-label="Mes anterior">
+                            <Icon>chevron_left</Icon>
+                        </IconButton>
+
+                        <IconButton aria-label="Proximo mes">
+                            <Icon>chevron_right</Icon>
+                        </IconButton>
+                    </Box>
+                    <Box flex="1" marginLeft="16px" component="h3">Junho de 2021</Box>
+
+                    <IconButton aria-label="Avatar">
+                        <Avatar>
+                            <Icon>person</Icon>
+                        </Avatar>
+                    </IconButton>
+                </Box>
+
+
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
