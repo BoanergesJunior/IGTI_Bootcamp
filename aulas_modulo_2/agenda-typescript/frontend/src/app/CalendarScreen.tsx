@@ -13,8 +13,11 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Icon from '@material-ui/core/Icon';
 import Avatar from '@material-ui/core/Avatar';
 import { getCalendarsEndpoint, getEventEndpoint, ICalendar, IEvent } from './backend';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { addMonths, formatMonth } from './dateFunctions'
+import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
+
 
 const DAYS_OF_WEEK = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SAB"]
 
@@ -56,13 +59,15 @@ const useStyles = makeStyles({
 
 export default function CalendarScreen() {
 
+    const { month } = useParams<{month: string}>()
+
     const classes = useStyles()
     const [events, setEvents] = useState<IEvent[]>([])
     const [calendars, setCalendars] = useState<ICalendar[]>([])
     const [calendarsSelected, setCalendarsSelected] = useState<boolean[]>([])
 
 
-    const weeks = generateCalendar(getToday(), events, calendars, calendarsSelected)
+    const weeks = generateCalendar(month + "-01", events, calendars, calendarsSelected)
     const firstDate = weeks[0][0].date
     const lastDate = weeks[weeks.length - 1][6].date
     
@@ -110,15 +115,17 @@ export default function CalendarScreen() {
             <Box flex="1" display="flex" flexDirection="column">
                 <Box display="flex" alignItems="center" padding="8px 16px">
                     <Box>
-                        <IconButton aria-label="Mes anterior">
+                        <IconButton aria-label="Mes anterior" component={Link} to={"/calendar/" + addMonths(month, -1)}>
                             <Icon>chevron_left</Icon>
                         </IconButton>
 
-                        <IconButton aria-label="Proximo mes">
+                        <IconButton aria-label="Proximo mes" component={Link} to={"/calendar/" + addMonths(month, 1)}>
                             <Icon>chevron_right</Icon>
                         </IconButton>
                     </Box>
-                    <Box flex="1" marginLeft="16px" component="h3">Junho de 2021</Box>
+                    <Box flex="1" marginLeft="16px" component="h3">
+                        {formatMonth(month)}
+                    </Box>
 
                     <IconButton aria-label="Avatar">
                         <Avatar>
@@ -231,8 +238,6 @@ export default function CalendarScreen() {
         return weeks
     }
 
-    function getToday() {
-        return "2021-06-17"
-    }
+  
 }
 
