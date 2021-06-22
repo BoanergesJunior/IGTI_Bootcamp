@@ -10,7 +10,7 @@ interface ICalendarsViewProps {
     calendarsSelected: boolean[]
 }
 
-export default function CalendarsView(props: ICalendarsViewProps) {
+export function CalendarsView(props: ICalendarsViewProps) {
 
     const { calendars, calendarsSelected, toggleCalendar } = props
 

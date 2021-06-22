@@ -7,17 +7,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Icon from '@material-ui/core/Icon';
-import Avatar from '@material-ui/core/Avatar';
 import { getCalendarsEndpoint, getEventEndpoint, ICalendar, IEvent } from './backend';
 import { useEffect, useState } from 'react';
-import { addMonths, formatMonth } from './dateFunctions'
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
-
+import { CalendarsView } from './CalendarsView'
+import { CalendarHeader } from './CalendarHeader'
 
 const DAYS_OF_WEEK = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SAB"]
 
@@ -96,43 +91,17 @@ export default function CalendarScreen() {
                 <Button variant="contained" color="primary">
                     Novo Evento
                 </Button>
-                <Box marginTop="64px">
-                    <h3>Agendas</h3>
-                    {calendars.map((calendar, i) => (
-                        <div key={calendar.id}>
-                            <FormControlLabel 
-                                control={<Checkbox 
-                                    style={{color: calendar.color}}
-                                    checked={calendarsSelected[i]} 
-                                    onChange={() => toggleCalendar(i)}/>
-                                } 
-                            label={calendar.name}/>
-                        </div>
-                    ))}
-                </Box>
+
+                <CalendarsView 
+                    calendars={calendars} 
+                    toggleCalendar={toggleCalendar} 
+                    calendarsSelected={calendarsSelected}
+                />
+                
             </Box>
 
             <Box flex="1" display="flex" flexDirection="column">
-                <Box display="flex" alignItems="center" padding="8px 16px">
-                    <Box>
-                        <IconButton aria-label="Mes anterior" component={Link} to={"/calendar/" + addMonths(month, -1)}>
-                            <Icon>chevron_left</Icon>
-                        </IconButton>
-
-                        <IconButton aria-label="Proximo mes" component={Link} to={"/calendar/" + addMonths(month, 1)}>
-                            <Icon>chevron_right</Icon>
-                        </IconButton>
-                    </Box>
-                    <Box flex="1" marginLeft="16px" component="h3">
-                        {formatMonth(month)}
-                    </Box>
-
-                    <IconButton aria-label="Avatar">
-                        <Avatar>
-                            <Icon>person</Icon>
-                        </Avatar>
-                    </IconButton>
-                </Box>
+                <CalendarHeader month={month} />
 
                 <TableContainer style={{flex: "1"}} component={"div"}>
                     <Table className={classes.table} aria-label="simple table">
