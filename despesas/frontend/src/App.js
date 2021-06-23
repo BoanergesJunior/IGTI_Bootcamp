@@ -1,20 +1,20 @@
-import { useEffect, useState} from 'react'
-import getApi from './services/getDespesas'
+import TableScreen from './pages/TableScreen'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { getToday } from './helpers/dateFunction';
 
 function App() {
 
-  const [despesas, setDespesas] = useState([])
-
-  useEffect(() => {
-    getApi()
-    .then((despesas) => {
-      setDespesas(despesas)
-    })
-  }, [])
+  const date = getToday()
 
   return (
     <div>
-     ola
+      <Router>
+        <Switch>
+          <Route path="/despesas">
+            <TableScreen />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
