@@ -1,13 +1,13 @@
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
-import { getCalendarsEndpoint, getEventEndpoint, ICalendar, IEvent } from './backend';
+import { getCalendarsEndpoint, getEventEndpoint, ICalendar, IEditingEvent, IEvent } from './backend';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { CalendarsView } from './CalendarsView'
 import { CalendarHeader } from './CalendarHeader'
 import { Calendar, ICalendarCell, IEventWithCalendar } from './Calendar'
-import EventFormDialog, { IEditingEvent } from './EventFormDialog';
+import { EventFormDialog } from './EventFormDialog';
 import { getToday } from './dateFunctions';
 
 export default function CalendarScreen() {
@@ -35,15 +35,19 @@ export default function CalendarScreen() {
         })
     }, [firstDate, lastDate])
 
+    function refreshEvents() {
+        getEventEndpoint(firstDate, lastDate).then(setEvents)
+    }
+
     function toggleCalendar(i: number) {
         const newValue = [...calendarsSelected]
         newValue[i] = !newValue[i]
         setCalendarsSelected(newValue)
     }
 
-    function openNewEvent() {
+    function openNewEvent(date: string) {
         setEditingEvent({
-            date: getToday(),
+            date,
             desc: "",
             calendarId: calendars[0].id
         })
@@ -56,7 +60,7 @@ export default function CalendarScreen() {
                 <Button 
                     variant="contained" 
                     color="primary"
-                    onClick={openNewEvent}
+                    onClick={() => openNewEvent(getToday())}
                 >
                     Novo Evento
                 </Button>
@@ -72,9 +76,17 @@ export default function CalendarScreen() {
             <Box flex="1" display="flex" flexDirection="column">
                 <CalendarHeader month={month} />
 
-                <Calendar weeks={weeks}/>
+                <Calendar weeks={weeks} onClickDay={openNewEvent} onClickEvent={setEditingEvent} />
 
-                <EventFormDialog event={editingEvent} onClose={() => setEditingEvent(null)} calendars={calendars}/>
+                <EventFormDialog 
+                    event={editingEvent} 
+                    onCancel={() => setEditingEvent(null)} 
+                    onSave={() => {
+                        setEditingEvent(null)
+                        refreshEvents()
+                    }}
+                    calendars={calendars}
+                />
 
             </Box>
         </Box>        
