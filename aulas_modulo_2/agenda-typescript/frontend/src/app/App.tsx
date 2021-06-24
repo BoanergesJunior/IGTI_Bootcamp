@@ -7,7 +7,6 @@ import LoginScreen from './LoginScreen'
 
 function App() {
   const month = getToday().substring(0,7)
-
   const [user, setUser] = useState<IUser | null>(null)
 
   useEffect(() => {
@@ -16,12 +15,16 @@ function App() {
     )
   }, [])
 
+  function signOut() {
+    setUser(null)
+  }
+
   if(user) {
     return (
       <Router>
         <Switch>
           <Route path="/calendar/:month">
-            <CalendarScreen />
+            <CalendarScreen user={user} onSignOut={signOut}/>
           </Route>
           <Redirect to={{pathname:"/calendar/" + month}}/>
         </Switch>

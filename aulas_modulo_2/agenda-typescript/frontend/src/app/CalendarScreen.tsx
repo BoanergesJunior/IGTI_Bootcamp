@@ -1,7 +1,7 @@
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
-import { getCalendarsEndpoint, getEventEndpoint, ICalendar, IEditingEvent, IEvent } from './backend';
+import { getCalendarsEndpoint, getEventEndpoint, ICalendar, IEditingEvent, IEvent, IUser } from './backend';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { CalendarsView } from './CalendarsView'
@@ -10,7 +10,12 @@ import { Calendar, ICalendarCell, IEventWithCalendar } from './Calendar'
 import { EventFormDialog } from './EventFormDialog';
 import { getToday } from './dateFunctions';
 
-export default function CalendarScreen() {
+interface ICalendarScreenProps {
+    onSignOut: () => void
+    user: IUser
+}
+
+export default function CalendarScreen(props: ICalendarScreenProps) {
 
     const { month } = useParams<{month: string}>()
 
@@ -74,7 +79,7 @@ export default function CalendarScreen() {
             </Box>
 
             <Box flex="1" display="flex" flexDirection="column">
-                <CalendarHeader month={month} />
+                <CalendarHeader user={props.user} onSignOut={props.onSignOut} month={month} />
 
                 <Calendar weeks={weeks} onClickDay={openNewEvent} onClickEvent={setEditingEvent} />
 
