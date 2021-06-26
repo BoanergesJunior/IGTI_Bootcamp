@@ -1,37 +1,38 @@
 import CalendarScreen from "./CalendarScreen";
-import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { getToday } from "./dateFunctions";
 import { useEffect, useState } from "react";
 import { getUserEndpoint, IUser } from "./backend";
-import LoginScreen from './LoginScreen'
+import LoginScreen from "./LoginScreen";
+import { authContext } from "./authContext";
 
 function App() {
-  const month = getToday().substring(0,7)
-  const [user, setUser] = useState<IUser | null>(null)
+  const month = getToday().substring(0, 7);
+  const [user, setUser] = useState<IUser | null>(null);
 
   useEffect(() => {
-    getUserEndpoint().then(setUser, 
-      () => setUser(null)
-    )
-  }, [])
+    getUserEndpoint().then(setUser, () => setUser(null));
+  }, []);
 
-  function signOut() {
-    setUser(null)
+  function onSignOut() {
+    setUser(null);
   }
 
-  if(user) {
+  if (user) {
     return (
-      <Router>
-        <Switch>
-          <Route path="/calendar/:month">
-            <CalendarScreen user={user} onSignOut={signOut}/>
-          </Route>
-          <Redirect to={{pathname:"/calendar/" + month}}/>
-        </Switch>
-      </Router>
-    )
+      <authContext.Provider value={{ user, onSignOut }}>
+        <Router>
+          <Switch>
+            <Route path="/calendar/:month">
+              <CalendarScreen />
+            </Route>
+            <Redirect to={{ pathname: "/calendar/" + month }} />
+          </Switch>
+        </Router>
+      </authContext.Provider>
+    );
   } else {
-    return <LoginScreen onSignIn={setUser}/>
+    return <LoginScreen onSignIn={setUser} />;
   }
 }
 
