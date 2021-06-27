@@ -4,7 +4,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 export type CellValue = "X" | "O" | "";
 export type Winner = "X" | "O" | "?" | "=";
 
-export interface TicTacToeState {
+interface TicTacToeState {
   nextPlayer: "X" | "O";
   board: CellValue[][];
   winner: Winner;
@@ -12,18 +12,18 @@ export interface TicTacToeState {
 
 const initialState: TicTacToeState = {
   nextPlayer: "X",
-  winner: "?",
   board: [
     ["", "", ""],
     ["", "", ""],
     ["", "", ""],
   ],
+  winner: "?",
 };
 
 function getWinner(board: CellValue[][]): Winner {
   const players: ("X" | "O")[] = ["X", "O"];
   for (const p of players) {
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 2; i++) {
       if (board[i][0] === p && board[i][1] === p && board[i][2] === p) {
         return p;
       }
@@ -38,11 +38,10 @@ function getWinner(board: CellValue[][]): Winner {
       }
     }
   }
+
   for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
-      if (board[i][j] === "") {
-        return "?";
-      }
+      if (board[i][j] === "") return "?";
     }
   }
   return "=";
@@ -70,19 +69,16 @@ const slice = createSlice({
   },
 });
 
+export const { play, reset } = slice.actions;
+
 export const store = configureStore({
   reducer: {
     ticTacToe: slice.reducer,
   },
 });
 
-export const { play, reset } = slice.actions;
-
-// Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
 
-// Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

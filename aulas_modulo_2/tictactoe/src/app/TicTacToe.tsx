@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector, play, reset } from "./store";
 
 export function TicTacToe() {
   const state = useAppSelector((state) => state.ticTacToe);
+
   const dispatch = useAppDispatch();
 
   return (

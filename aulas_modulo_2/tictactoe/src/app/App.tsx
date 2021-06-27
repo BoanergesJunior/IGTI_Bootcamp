@@ -1,5 +1,5 @@
-import { Provider } from "react-redux";
 import { TicTacToe } from "./TicTacToe";
+import { Provider } from "react-redux";
 import { store } from "./store";
 
 function App() {
