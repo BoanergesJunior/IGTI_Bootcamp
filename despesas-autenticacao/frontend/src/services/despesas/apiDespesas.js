@@ -1,6 +1,7 @@
-export function getApi(date) {
-    return fetch(`http://localhost:3001/despesas?${date}`)
-    .then(resp => {
-        return resp.json()
-    })
+import { handleResponse } from "../users/apiUsers"
+
+export function getApi() {
+  return fetch("http://localhost:3001/despesas", {
+    credentials: "include",
+  }).then(handleResponse)
 }
