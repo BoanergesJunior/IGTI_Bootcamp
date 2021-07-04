@@ -15,7 +15,7 @@ const Container = styled.div`
 export const CitySearch = () => {
   return (
     <Container>
-      <InputSearch />
+      <InputSearch found />
     </Container>
   )
 }

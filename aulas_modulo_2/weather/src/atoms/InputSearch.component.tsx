@@ -1,4 +1,6 @@
+import { useState } from "react"
 import styled from "styled-components"
+import searchIcon from "../assets/search-icon.svg"
 
 const SearchBar = styled.div`
   display: flex;
@@ -18,7 +20,9 @@ const SearchInput = styled.input<SearchInputProps>`
   width: 80%;
   border-radius: 100px;
   height: 1rem;
-  background-color: ${({ error }) => `${error ? "red" : "#999"}`};
+  margin-right: -2rem;
+  background-color: ${({ error }) =>
+    `${error ? `var(--primary)` : `var(--grey-dark-3)`}`};
   outline: none;
   transition: 0.2s;
   &:focus {
@@ -26,10 +30,21 @@ const SearchInput = styled.input<SearchInputProps>`
   }
 `
 
-export const InputSearch = () => {
+interface InputSearchProps {
+  found: boolean
+}
+
+export const InputSearch: React.FC<InputSearchProps> = ({ found }) => {
+  const [name, setName] = useState("")
+
   return (
     <SearchBar>
-      <SearchInput error={true} />
+      <SearchInput
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        error={!found}
+      />
+      <img src={searchIcon} width="24px" height="24px" alt="search-icon" />
     </SearchBar>
   )
 }
