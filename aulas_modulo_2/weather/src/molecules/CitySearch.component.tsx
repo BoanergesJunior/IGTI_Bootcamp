@@ -1,5 +1,7 @@
+import { useAtom } from "jotai"
 import styled from "styled-components"
 import { InputSearch } from "../atoms/InputSearch.component"
+import { citiesAtom } from "../global"
 
 const Container = styled.div`
   display: flex;
@@ -13,9 +15,16 @@ const Container = styled.div`
 `
 
 export const CitySearch = () => {
+  const [cities] = useAtom(citiesAtom)
+
   return (
     <Container>
       <InputSearch found />
+      <div>
+        {cities.map((city) => (
+          <div>{city.name}</div>
+        ))}
+      </div>
     </Container>
   )
 }

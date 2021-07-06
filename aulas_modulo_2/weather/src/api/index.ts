@@ -1,5 +1,4 @@
-import cities from "./entities/city.json"
+import { fetchCities } from "./ApiCalls"
+import { citiesQuery } from "./queries"
 
-export const fetchCities = async () => {
-  return JSON.parse(JSON.stringify(cities))
-}
+export { fetchCities, citiesQuery }
