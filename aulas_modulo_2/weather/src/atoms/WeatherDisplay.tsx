@@ -11,7 +11,8 @@ const Container = styled.div`
   text-align: center;
   padding: 5rem;
   border-radius: 5px;
-  background-color: var(--grey-dark-2);
+  background-color: ${({ theme }) => theme.primary};
+  color: ${({ theme }) => theme.textPrimary};
 `
 
 const Title = styled.h1`
@@ -29,10 +30,9 @@ const TemperatureDisplay = styled.span`
 `
 
 const TempImage = styled.span`
-  background-color: var(--grey-dark-);
   border-radius: 30px;
   margin-right: 1rem;
-  background-color: var(--grey-dark-3);
+  background-color: ${({ theme }) => theme.secondary};
 `
 const TemperatureValue = styled.span`
   display: flex;

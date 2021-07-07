@@ -1,5 +1,7 @@
+import { useAtom } from "jotai"
 import styled from "styled-components"
 import { InputSearch } from "../atoms/InputSearch.component"
+import { citiesAtom } from "../global"
 
 import CityList from "./CityList.component"
 
@@ -15,9 +17,11 @@ const Container = styled.div`
 `
 
 export const CitySearch = () => {
+  const [cities] = useAtom(citiesAtom)
+
   return (
     <Container>
-      <InputSearch found />
+      <InputSearch found={cities.length > 0} />
       <CityList />
     </Container>
   )

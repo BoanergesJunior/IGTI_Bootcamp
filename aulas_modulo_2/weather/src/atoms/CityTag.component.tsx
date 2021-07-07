@@ -17,8 +17,8 @@ const Tag = styled.div<TagProps>`
   margin-right: 0.1rem;
   margin-left: 0.1rem;
   cursor: pointer;
-  background-color: ${({ checked }) =>
-    `${checked ? `var(--tag-checked)` : `var(--tag)`}`};
+  background-color: ${({ checked, theme }) =>
+    `${checked ? theme.tagChecked : theme.tag}`};
 `
 const TagText = styled.span`
   margin-right: auto;

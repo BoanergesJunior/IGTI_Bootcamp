@@ -22,8 +22,9 @@ const SearchInput = styled.input<SearchInputProps>`
   border-radius: 100px;
   height: 1rem;
   margin-right: -2rem;
-  background-color: ${({ error }) =>
-    `${error ? `var(--primary)` : `var(--grey-dark-3)`}`};
+  background-color: ${({ error, theme }) =>
+    `${error ? theme.error : theme.secondary}`};
+  border: ${({ theme }) => theme.secondary} solid 2px;
   outline: none;
   transition: 0.2s;
   &:focus {
