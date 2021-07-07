@@ -3,6 +3,7 @@ import "../styles/colors.style.css"
 import { QueryClient, QueryClientProvider } from "react-query"
 import WeatherDisplay from "../atoms/WeatherDisplay"
 import styled from "styled-components"
+import ThemeSwitch from "../atoms/ThemeSwitch.component."
 
 const Container = styled.div`
   overflow: hidden;
@@ -10,6 +11,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-around;
   margin: auto;
+  padding: 1rem;
 `
 
 const AppContainer = styled.div`
@@ -31,6 +33,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AppContainer>
         <Container>
+          <ThemeSwitch />
           <CitySearch />
           <ContainerWeatherDisplay>
             <WeatherDisplay />
