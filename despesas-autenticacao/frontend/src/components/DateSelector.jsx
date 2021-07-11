@@ -10,7 +10,6 @@ import {
   arrayOfYear,
   // findIndexOfMonth,
 } from "../helpers/dateFunction"
-import UserMenu from "./UserMenu"
 
 const useStyles = makeStyles({
   box: {
@@ -79,10 +78,9 @@ export default function DateSelector({ total = 0, date = "" }) {
         </FormControl>
       </Box>
 
-      <Box fontWeight="bold" fontSize="20px">
+      <Box className={classes.total} fontWeight="bold" fontSize="20px">
         R$ {total}
       </Box>
-      <UserMenu />
     </div>
   )
 }

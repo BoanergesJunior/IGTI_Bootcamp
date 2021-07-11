@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router"
 import DateSelector from "../components/DateSelector"
 import TableComponent from "../components/TableComponent"
+import UserMenu from "../components/UserMenu"
 import { getApi } from "../services/despesas/apiDespesas"
 
 export default function TableScreen() {
@@ -12,7 +13,7 @@ export default function TableScreen() {
   useEffect(() => {
     getApi().then((despesas) => {
       let filter = despesas
-        .filter((despesa) => despesa.mes === "2021-04")
+        .filter((despesa) => despesa.mes === "2020-12")
         .sort((a, b) => (a.dia > b.dia ? 1 : a.dia < b.dia ? -1 : 0))
       let totalValue = 0
       for (const each of filter) {
@@ -26,6 +27,7 @@ export default function TableScreen() {
 
   return (
     <div>
+      <UserMenu />
       <DateSelector total={total} date={date} />
       <TableComponent despesas={despesas} />
     </div>

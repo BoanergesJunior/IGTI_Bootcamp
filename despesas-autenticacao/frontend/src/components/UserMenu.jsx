@@ -42,7 +42,11 @@ export default function UserMenu() {
   }
 
   return (
-    <div>
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <span style={{ fontWeight: "bold", fontSize: "36px", padding: "8px" }}>
+        Despesas
+      </span>
+
       <IconButton
         aria-controls="simple-menu"
         aria-haspopup="true"

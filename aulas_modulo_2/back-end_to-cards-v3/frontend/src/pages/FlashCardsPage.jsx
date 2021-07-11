@@ -1,78 +1,78 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react"
 
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs"
+import "react-tabs/style/react-tabs.css"
 
-import Button from '../components/Button';
-import Error from '../components/Error';
-import FlashCard from '../components/FlashCard';
-import FlashCardForm from '../components/FlashCardForm';
-import FlashCardItem from '../components/FlashCardItem';
-import FlashCards from '../components/FlashCards';
-import Header from '../components/Header';
-import Loading from '../components/Loading';
-import Main from '../components/Main';
-import RadioButton from '../components/RadioButton';
+import Button from "../components/Button"
+import Error from "../components/Error"
+import FlashCard from "../components/FlashCard"
+import FlashCardForm from "../components/FlashCardForm"
+import FlashCardItem from "../components/FlashCardItem"
+import FlashCards from "../components/FlashCards"
+import Header from "../components/Header"
+import Loading from "../components/Loading"
+import Main from "../components/Main"
+import RadioButton from "../components/RadioButton"
 
-import { helperShuffleArray } from '../helpers/arrayHelpers';
+import { helperShuffleArray } from "../helpers/arrayHelpers"
 
 import {
   apiCreateFlashCard,
   apiDeleteFlashCard,
   apiGetAllFlashCards,
   apiUpdateFlashCard,
-} from '../services/apiService';
+} from "../services/apiService"
 
 export default function FlashCardsPage() {
   // Back End
-  const [allCards, setAllCards] = useState([]);
+  const [allCards, setAllCards] = useState([])
 
   // Exclusivo para "Estudo"
-  const [studyCards, setStudyCards] = useState([]);
+  const [studyCards, setStudyCards] = useState([])
 
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [createMode, setCreateMode] = useState(true);
-  const [selectedTab, setSelectedTab] = useState(0);
-  const [selectedFlashCard, setSelectedFlashCard] = useState(null);
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
+  const [createMode, setCreateMode] = useState(true)
+  const [selectedTab, setSelectedTab] = useState(0)
+  const [selectedFlashCard, setSelectedFlashCard] = useState(null)
 
-  const [radioButtonShowTitle, setRadioButtonShowTitle] = useState(true);
+  const [radioButtonShowTitle, setRadioButtonShowTitle] = useState(true)
 
   useEffect(() => {
     async function getAllCards() {
       try {
-        const backEndAllCards = await apiGetAllFlashCards();
+        const backEndAllCards = await apiGetAllFlashCards()
 
-        setAllCards(backEndAllCards);
+        setAllCards(backEndAllCards)
 
         setTimeout(() => {
-          setLoading(false);
-        }, 500);
+          setLoading(false)
+        }, 500)
       } catch (error) {
-        setError(error.message);
+        setError(error.message)
       }
     }
 
-    getAllCards();
-  }, []);
+    getAllCards()
+  }, [])
 
   function handleShuffle() {
-    const shuffledCards = helperShuffleArray(studyCards);
+    const shuffledCards = helperShuffleArray(studyCards)
 
-    setStudyCards(shuffledCards);
+    setStudyCards(shuffledCards)
   }
 
   useEffect(() => {
-    setStudyCards(allCards.map(card => ({ ...card, showTitle: true })));
-  }, [allCards]);
+    setStudyCards(allCards.map((card) => ({ ...card, showTitle: true })))
+  }, [allCards])
 
   function handleRadioShowDescriptionClick() {
     // prettier-ignore
     const updatedCards = 
       [...studyCards].map(card => ({...card, showTitle: false}));
 
-    setStudyCards(updatedCards);
-    setRadioButtonShowTitle(false);
+    setStudyCards(updatedCards)
+    setRadioButtonShowTitle(false)
   }
 
   function handleRadioShowTitleClick() {
@@ -80,81 +80,81 @@ export default function FlashCardsPage() {
     const updatedCards = 
       [...studyCards].map(card => ({...card, showTitle: true}));
 
-    setStudyCards(updatedCards);
+    setStudyCards(updatedCards)
 
-    setRadioButtonShowTitle(true);
+    setRadioButtonShowTitle(true)
   }
 
   function handleToggleFlashCard(cardId) {
-    const updatedCards = [...studyCards];
-    const cardIndex = updatedCards.findIndex(card => card.id === cardId);
-    updatedCards[cardIndex].showTitle = !updatedCards[cardIndex].showTitle;
+    const updatedCards = [...studyCards]
+    const cardIndex = updatedCards.findIndex((card) => card.id === cardId)
+    updatedCards[cardIndex].showTitle = !updatedCards[cardIndex].showTitle
 
-    setStudyCards(updatedCards);
+    setStudyCards(updatedCards)
   }
 
   async function handleDeleteFlashCard(cardId) {
     try {
       // Back End
-      await apiDeleteFlashCard(cardId);
+      await apiDeleteFlashCard(cardId)
 
       // Front End
-      setAllCards(allCards.filter(card => card.id !== cardId));
+      setAllCards(allCards.filter((card) => card.id !== cardId))
 
-      setError('');
+      setError("")
     } catch (error) {
-      setError(error.message);
+      setError(error.message)
     }
   }
 
   function handleEditFlashCard(card) {
-    setCreateMode(false);
-    setSelectedTab(1);
-    setSelectedFlashCard(card);
+    setCreateMode(false)
+    setSelectedTab(1)
+    setSelectedFlashCard(card)
   }
 
   function handleNewFlashCard() {
-    setCreateMode(true);
-    setSelectedFlashCard(null);
+    setCreateMode(true)
+    setSelectedFlashCard(null)
   }
 
   function handleTabSelect(tabIndex) {
-    setSelectedTab(tabIndex);
+    setSelectedTab(tabIndex)
   }
 
   async function handlePersist(title, description) {
     if (createMode) {
       try {
         // Back End
-        const newFlashCard = await apiCreateFlashCard(title, description);
+        const newFlashCard = await apiCreateFlashCard(title, description)
 
         // Front End
-        setAllCards([...allCards, newFlashCard]);
+        setAllCards([...allCards, newFlashCard])
 
-        setError('');
+        setError("")
       } catch (error) {
-        setError(error.message);
+        setError(error.message)
       }
     } else {
       try {
         // Back End
-        await apiUpdateFlashCard(selectedFlashCard.id, title, description);
+        await apiUpdateFlashCard(selectedFlashCard.id, title, description)
 
         // Front End
         setAllCards(
-          allCards.map(card => {
+          allCards.map((card) => {
             if (card.id === selectedFlashCard.id) {
-              return { ...card, title, description };
+              return { ...card, title, description }
             }
-            return card;
+            return card
           })
-        );
+        )
 
-        setSelectedFlashCard(null);
-        setCreateMode(true);
-        setError('');
+        setSelectedFlashCard(null)
+        setCreateMode(true)
+        setError("")
       } catch (error) {
-        setError(error.message);
+        setError(error.message)
       }
     }
   }
@@ -163,10 +163,10 @@ export default function FlashCardsPage() {
     <div className="flex justify-center my-4">
       <Loading />
     </div>
-  );
+  )
 
   if (error) {
-    mainJsx = <Error>{error}</Error>;
+    mainJsx = <Error>{error}</Error>
   }
 
   if (!loading && !error) {
@@ -180,7 +180,7 @@ export default function FlashCardsPage() {
           </TabList>
 
           <TabPanel>
-            {allCards.map(flashCard => {
+            {allCards.map((flashCard) => {
               return (
                 <FlashCardItem
                   key={flashCard.id}
@@ -189,7 +189,7 @@ export default function FlashCardsPage() {
                 >
                   {flashCard}
                 </FlashCardItem>
-              );
+              )
             })}
           </TabPanel>
 
@@ -241,13 +241,13 @@ export default function FlashCardsPage() {
                     showFlashCardTitle={showTitle}
                     onToggleFlashCard={handleToggleFlashCard}
                   />
-                );
+                )
               })}
             </FlashCards>
           </TabPanel>
         </Tabs>
       </>
-    );
+    )
   }
 
   return (
@@ -256,5 +256,5 @@ export default function FlashCardsPage() {
 
       <Main>{mainJsx}</Main>
     </>
-  );
+  )
 }
