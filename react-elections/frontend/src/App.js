@@ -1,6 +1,11 @@
-import ElectionsInfo from "./pages/ElectionsInfo";
+import Dashboard from "./pages/Dashboard";
 
-export default function App() {
-
-  return <ElectionsInfo />
+function App() {
+  return (
+    <div>
+      <Dashboard />
+    </div>
+  );
 }
+
+export default App;
