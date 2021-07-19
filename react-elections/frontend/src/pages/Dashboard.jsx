@@ -1,9 +1,13 @@
-import Teste from "../components/Teste";
+import Select from "../components/Select";
+import TableInfo from "../components/Table";
+import Header from "../components/Header";
 
 export default function Dashboard() {
   return (
     <div>
-      <Teste />
+      <Header />
+      <Select />
+      <TableInfo />
     </div>
   );
 }
